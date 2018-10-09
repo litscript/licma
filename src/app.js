@@ -15,7 +15,11 @@ if(arg._.length > 0)
         let fileName = arg._[0].replace('.lit', '.js')
         code = fs.readFileSync(filePath).toString('utf8')
         var result = compile(code)
-        fs.writeFileSync(process.cwd() + '/' + fileName, result)
+        if(!fs.existsSync(process.cwd() + '/compiled'))
+        {
+            fs.mkdir(process.cwd() + '/compiled')
+        }
+        fs.writeFileSync(process.cwd() + '/compiled/' + fileName, result)
         console.log(`${arg._[0]} -> ${fileName}`)
     }
     else console.log('ERROR: File not found')
@@ -301,7 +305,7 @@ function generator(ast)
             {
                 code+='\n' 
             }
-            if(current.value = 'put') code += 'console.log'
+            if(current.value == 'put') code += 'console.log'
             else code += current.value
             i++
             continue
