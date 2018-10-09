@@ -295,7 +295,7 @@ function generator(ast)
         if(current.type == 'Body')
         {
             if(current.value == 'BodyStart') code+='{\n'
-            if(current.value == 'BodyEnd') code+='\n}'
+            if(current.value == 'BodyEnd') code+='\n}\n\n'
             i++
             continue
         }
