@@ -1,13 +1,18 @@
-var test = `
-use 'main'
-use 'express'
+import fs from 'fs'
+import yargs from 'yargs'
 
-p s f Main(){
-    p txt name is 'Wibu'
-    s num age is 420
-    console.log(name)
+var arg = yargs.argv
+var code = ""
+
+if(arg._.length > 0)
+{
+    code = fs.readFileSync(process.cwd() + '/' + arg._[0]).toString('utf8')
+    compile(code)
 }
-`
+else
+{
+    console.log('ERROR: No File Specified')
+}
 
 function tokenize(input) {
     var tokens = []
@@ -32,7 +37,7 @@ function tokenize(input) {
         if (current == '\'') {
             let keyword = ''
             let temp = input[++i]
-            while (CHAR.test(temp)) {
+            while (temp != '\'') {
                 keyword += temp
                 temp = input[++i]
             }
@@ -291,10 +296,21 @@ function generator(ast)
             i++
             continue
         }
+        if(current.type == 'String')
+        {
+            code += `'${current.value}'`
+            i++
+            continue
+        }
         else i++
     }
     console.log(code)
+    return code
 }
-var tokens = tokenize(test)
-var semiAst = parse(tokens)
-generator(semiAst)
+
+function compile(code)
+{
+    var tokens = tokenize(code)
+    var ast = parse(tokens)
+    var generated = generator(ast)
+}
