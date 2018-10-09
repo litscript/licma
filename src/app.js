@@ -4,10 +4,17 @@ import yargs from 'yargs'
 var arg = yargs.argv
 var code = ""
 
+console.log('LICMA')
+
 if(arg._.length > 0)
 {
-    code = fs.readFileSync(process.cwd() + '/' + arg._[0]).toString('utf8')
-    compile(code)
+    let filePath = process.cwd() + '/' + arg._[0]
+    if(fs.existsSync(filepath))
+    {
+        code = fs.readFileSync().toString('utf8')
+        compile(code)
+    }
+    else console.log('ERROR: File not found')
 }
 else
 {
