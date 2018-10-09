@@ -9,9 +9,9 @@ console.log('LICMA')
 if(arg._.length > 0)
 {
     let filePath = process.cwd() + '/' + arg._[0]
-    if(fs.existsSync(filepath))
+    if(fs.existsSync(filePath))
     {
-        code = fs.readFileSync().toString('utf8')
+        code = fs.readFileSync(filePath).toString('utf8')
         compile(code)
     }
     else console.log('ERROR: File not found')
