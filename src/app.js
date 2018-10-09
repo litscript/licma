@@ -297,7 +297,12 @@ function generator(ast)
         }
         if(current.type == 'Member')
         {
-            code += current.value
+            if(ast[i-1].type == 'Param' && ast[i-1].value == 'ParamEnd')
+            {
+                code+='\n' 
+            }
+            if(current.value = 'put') code += 'console.log'
+            else code += current.value
             i++
             continue
         }
